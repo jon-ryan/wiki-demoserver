@@ -38,26 +38,39 @@ func (d *Document) setBody(body string) string {
 	return d.Body
 }
 
-// DocumentList groups Documents into a list
-type DocumentList struct {
+// DocumentMap groups Documents into a map
+type DocumentMap struct {
 	Documents map[string]Document `json:"Documents"`
 }
 
-// init doclist
-func (d *DocumentList) init() {
+// init docmap
+func (d *DocumentMap) init() {
 	d.Documents = make(map[string]Document)
 }
 
-// documentlist methods
-func (d *DocumentList) addDocument(doc *Document) {
+// documentmap methods
+func (d *DocumentMap) addDocument(doc *Document) {
 	d.Documents[doc.Title] = *doc
 }
 
-func (d *DocumentList) getDocument(title string) (*Document, error) {
+func (d *DocumentMap) getDocument(title string) (*Document, error) {
 	doc := d.Documents[title]
 
 	if doc.getTitle() == "" {
 		return &Document{"", "", ""}, errors.New("404 - Document does not exist")
 	}
 	return &doc, nil
+}
+
+func (d *DocumentMap) getMap() map[string]Document {
+	return d.Documents
+}
+
+// DocumentList groups Documents into a list
+type DocumentList struct {
+	Documents []Document `json: "Documents"`
+}
+
+func (d *DocumentList) addDocument(doc *Document) {
+	d.Documents = append(d.Documents, *doc)
 }

@@ -7,11 +7,17 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-var documentList DocumentList
+var documentMap DocumentMap
 
 // getAllDocuments responds with a json object containing all documents
 func getAllDocuments(c *fiber.Ctx) error {
-	return c.JSON(documentList)
+	// convert map to list
+	var documents DocumentList
+	for _, value := range documentMap.getMap() {
+		documents.addDocument(&value)
+	}
+
+	return c.JSON(documents)
 }
 
 // addDocument receives a json object and adds it to the documents and responds with the document
@@ -22,18 +28,18 @@ func addDocument(c *fiber.Ctx) error {
 		return err
 	}
 
-	documentList.addDocument(doc)
+	documentMap.addDocument(doc)
 	return c.JSON(doc)
 }
 
 func main() {
 	// init documentList
-	documentList.init()
+	documentMap.init()
 
 	doc := Document{"Hello World", "This is the abstract", "Basic body"}
-	documentList.addDocument(&doc)
+	documentMap.addDocument(&doc)
 	doc2 := Document{"Hello GO!", "Opinion about go", "Go is nice!"}
-	documentList.addDocument(&doc2)
+	documentMap.addDocument(&doc2)
 
 	app := fiber.New()
 
