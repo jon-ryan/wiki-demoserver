@@ -7,24 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-// Document structures a simple document for the wiki
-type Document struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-}
-
-// DocumentList groups Documents into a list
-type DocumentList struct {
-	Documents []Document `json:"Documents"`
-}
-
-func (d *DocumentList) addDocument(doc *Document) {
-	d.Documents = append(d.Documents, *doc)
-}
-
 var documentList DocumentList
-
-//var documentList []Document
 
 // getAllDocuments responds with a json object containing all documents
 func getAllDocuments(c *fiber.Ctx) error {
@@ -44,10 +27,12 @@ func addDocument(c *fiber.Ctx) error {
 }
 
 func main() {
+	// init documentList
+	documentList.init()
 
-	doc := Document{"Hello World", "Basic desc"}
+	doc := Document{"Hello World", "This is the abstract", "Basic body"}
 	documentList.addDocument(&doc)
-	doc2 := Document{"Hello GO!", "Go is nice!"}
+	doc2 := Document{"Hello GO!", "Opinion about go", "Go is nice!"}
 	documentList.addDocument(&doc2)
 
 	app := fiber.New()
