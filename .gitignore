@@ -13,3 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# exclude static files
+static_files/*
+!static_files/README.md
