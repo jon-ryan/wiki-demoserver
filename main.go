@@ -16,7 +16,6 @@ func getAllDocuments(c *fiber.Ctx) error {
 	for _, value := range documentMap.getMap() {
 		documents.addDocument(&value)
 	}
-
 	return c.JSON(documents)
 }
 

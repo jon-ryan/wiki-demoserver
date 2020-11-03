@@ -5,18 +5,18 @@ import (
 )
 
 func TestDocuments(t *testing.T) {
-	var documentList DocumentList
-	documentList.init()
+	var documentMap DocumentMap
+	documentMap.init()
 
 	doc1Title := "Test document"
 	doc1Abstract := "Abstract of test document"
 	doc1Body := "This is the body of the test doc"
 
 	// add a document
-	documentList.addDocument(&Document{doc1Title, doc1Abstract, doc1Body})
+	documentMap.addDocument(&Document{doc1Title, doc1Abstract, doc1Body})
 
 	// get the document
-	doc1, err := documentList.getDocument(doc1Title)
+	doc1, err := documentMap.getDocument(doc1Title)
 
 	if err != nil {
 		t.Errorf("Document 1 could not be retrieved")
@@ -35,7 +35,7 @@ func TestDocuments(t *testing.T) {
 	}
 
 	// get not existing document
-	doc2, err2 := documentList.getDocument("Not existing")
+	doc2, err2 := documentMap.getDocument("Not existing")
 	if err2 == nil {
 		t.Errorf("Doc 2 should not be available")
 	}

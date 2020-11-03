@@ -4,9 +4,9 @@ import "errors"
 
 // Document structures a simple document for the wiki
 type Document struct {
-	Title    string `json:"title"`
-	Abstract string `json:"abstract"`
-	Body     string `json:"body"`
+	Title    string `json:"Title"`
+	Abstract string `json:"Abstract"`
+	Body     string `json:"Body"`
 }
 
 // document get methods
@@ -68,7 +68,7 @@ func (d *DocumentMap) getMap() map[string]Document {
 
 // DocumentList groups Documents into a list
 type DocumentList struct {
-	Documents []Document `json: "Documents"`
+	Documents []Document `json:"Documents"`
 }
 
 func (d *DocumentList) addDocument(doc *Document) {
